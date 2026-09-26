@@ -30,11 +30,11 @@ def train_logistic_regression(X: np.ndarray, y: np.ndarray, lr: float = 0.1, ste
         #(1 - out) * y_i - (1 - y_i) * out
         #y_1 - out 
         #dz/dW
-        grad_w = X.T
+        grad_w = X
         #dz/dB
         grad_b = 1 
-        W = W - lr * np.mean(delta * grad_w, axis = 1, keepdims=True).T
-        b = b - lr * np.mean(delta * grad_b, axis = 1, keepdims=True).T
+        W = W - lr * delta @ grad_w / X.shape[0]
+        b = b - lr * np.mean(delta * grad_b, axis = 1, keepdims=True)
 
         return W,b
 
