@@ -24,10 +24,7 @@ def impute_missing(X: list, strategy: str = "mean") -> np.ndarray:
         print(map)
         map = map * X_mean 
         print(map)
-        X = np.where(np.isnan(X), map, X)
-        if one_d:
-            X = np.squeeze(X)
-        return X
+        
 
     if strategy=="median":
         new_X = np.where(np.isnan(X), 0, X)
@@ -36,10 +33,11 @@ def impute_missing(X: list, strategy: str = "mean") -> np.ndarray:
         X_median = np.where(np.isnan(X_median), 0, X_median)
         X_median = np.array(X_median)
         map = map * X_median.T
-        X = np.where(np.isnan(X), map, X)
-        if one_d:
-            X = np.squeeze(X)
-        return X
+
+    X = np.where(np.isnan(X), map, X)
+    if one_d:
+        X = np.squeeze(X)
+    return X
         
         
             
